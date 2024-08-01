@@ -1,0 +1,23 @@
+{
+  "name": "omdao-backend",
+  "version": "1.0.0",
+  "description": "omdao backend sever",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Omdao2022/back.git"
+  },
+  "keywords": [
+    "omdao",
+    "backend"
+  ],
+  "author": "hcrypto7",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Omdao2022/back/issues"
+  },
+  "homepage": "https://github.com/Omdao2022/back#readme"
+}
