@@ -1,11 +1,12 @@
 import mongoose, { Schema, model } from 'mongoose';
 
-const Client: Schema = new mongoose.Schema({
+const clientSchema: Schema = new mongoose.Schema({
   id: { type: String, required: true },
   firstName: { type: String, required: true, unique: true },
   secondName: { type: String, required: true },
-  email: {},
-  password: {},
-  kycPassed: {},
+  email: { type: String, },
+  kycPassed: { type: Boolean, default: false},
 });
+
+export const User = model('User', clientSchema);
 
