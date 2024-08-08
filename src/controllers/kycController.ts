@@ -19,6 +19,10 @@ export class KycController {
   }
 
   public getAccessToken = async (req: Request, res: Response): Promise<void> => {
-    console.log(getAccessToken(1));
+    await getAccessToken(1);
+  }
+
+  public getApplicant = async (req: Request, res: Response): Promise<void> => {
+    await getApplicant(1);
   }
 } 

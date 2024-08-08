@@ -1,11 +1,11 @@
 import crypto from "crypto";
 import axios from "axios";
-import { sumsubSecret } from "../config/env";
+import devConfig from "../config/env";
 
-// const sumsubSecret = process.env.SUMSUB_SECRET;
-const sumsubToken = process.env.SUMSUB_TOKEN;
+const sumsubSecret: string = devConfig.sumsubSecret??'';
+const sumsubToken = devConfig.sumsubToken;
 
-console.log("sumsubToken===========>", sumsubToken);
+console.log("sumsubToken===========>", sumsubToken, sumsubSecret);
 
 const SUMSUB_BASE_URL = "https://api.sumsub.com";
 
@@ -16,12 +16,15 @@ const createSignature = async (config: any) => {
   console.log("Creating a signature for the request...");
 
   var ts = Math.floor(Date.now() / 1000) + 50;
+  console.log("sumsubSecret=========>", sumsubSecret);
   const signature = crypto.createHmac("sha256", sumsubSecret);
+  console.log("signature==========>", signature);
   signature.update(ts + config.method.toUpperCase() + config.url);
 
   config.headers["X-App-Access-Ts"] = ts;
   config.headers["X-App-Access-Sig"] = signature.digest("hex");
   config.timeout = 6000;
+  console.log("config============>", config);
   return config;
 };
 
@@ -63,10 +66,11 @@ const getAccessToken = async (userId:number) => {
   config.headers = headers;
   config.responseType = "json";
 
-  console.log("config=======>", config);
+  console.log("config for getToken=======>", config);
 
   try {
     const response = await axios(config);
+    console.log("request sent!");
     return response.data;
   } catch (error) {
     console.log(error);

@@ -1,7 +1,9 @@
 import crypto from 'crypto';
+import dotenv from 'dotenv';
 
-const sumsubSecretString: String | undefined = process.env.SUMSUB_SECRET;
-console.log("sumsubSecretString=====>", sumsubSecretString);
-const sumsubSecret = Buffer.from(sumsubSecretString ?? '', 'utf-8');
+dotenv.config();
 
-export { sumsubSecret };
+export default {
+  sumsubToken: process.env.SUMSUB_TOKEN,
+  sumsubSecret: process.env.SUMSUB_SECRET,
+};
