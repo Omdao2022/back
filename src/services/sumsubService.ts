@@ -23,8 +23,9 @@ const createSignature = async (config: any) => {
 
   config.headers["X-App-Access-Ts"] = ts;
   config.headers["X-App-Access-Sig"] = signature.digest("hex");
+  config.headers["Content-Type"] = "application/json";
   config.timeout = 6000;
-  console.log("config============>", config);
+  console.log("config=======>", config);
   return config;
 };
 
@@ -32,7 +33,7 @@ axios.interceptors.request.use(createSignature, function (error) {
   return Promise.reject(error);
 });
 
-const getApplicant = async (applicantId:number) => {
+const getApplicant = async (applicantId:string) => {
   const url = `/resources/applicants/${applicantId}/one`;
 
   const headers = {
@@ -53,7 +54,7 @@ const getApplicant = async (applicantId:number) => {
   }
 };
 
-const getAccessToken = async (userId:number) => {
+const getAccessToken = async (userId:string) => {
   const url = `/resources/accessTokens?userId=${userId}&levelName=basic-kyc-level&ttlInSecs=2000`;
 
   const headers = {
@@ -71,13 +72,14 @@ const getAccessToken = async (userId:number) => {
   try {
     const response = await axios(config);
     console.log("request sent!");
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);
   }
 };
 
-const getApplicantVerifStep = async (applicantId:number) => {
+const getApplicantVerifStep = async (applicantId:string) => {
   const url = `/resources/applicants/${applicantId}/requiredIdDocsStatus`;
 
   const headers = {

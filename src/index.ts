@@ -9,12 +9,9 @@ dotenv.config();
 const app: Application = express();
 const port = process.env.PORT || 8000;
 
-app.use(express.json())
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use('/api', kycRouter);
-app.get("/", (req: Request, res: Response) => {
-  res.send("welcome to Express & Typescript Server");
-});
-
 
 connectDB().then(() => {
   app.listen(port, () => {
