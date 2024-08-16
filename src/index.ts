@@ -2,6 +2,7 @@ import express, { Express, Request, Response, Application } from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db';
 import kycRouter from './routes/kycRouter';
+import cors from 'cors';
 
 //For env file
 dotenv.config();
@@ -9,6 +10,7 @@ dotenv.config();
 const app: Application = express();
 const port = process.env.PORT || 8000;
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', kycRouter);

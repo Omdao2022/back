@@ -1,12 +1,16 @@
 import mongoose, { Schema, model } from 'mongoose';
 
 const clientSchema: Schema = new mongoose.Schema({
-  id: { type: String, required: true },
-  firstName: { type: String, required: true, unique: true },
-  secondName: { type: String, required: true },
-  email: { type: String, },
-  kycPassed: { type: Boolean, default: false},
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  birthday: { type: Date, required: true },
+  email: { type: String, required: true, unique: true},
+  country: { type: Object, required: true },
+  location: { type: String, required: true },
+  address: { type: String, required: true },
+  zipcode: { type: String, required: true },
+  kycPassed: { type: Boolean, default: false },
 });
 
-export const User = model('User', clientSchema);
+export const Client = model('Client', clientSchema);
 
