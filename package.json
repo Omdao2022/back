@@ -27,9 +27,11 @@
     "axios": "^1.7.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "eth-sig-util": "^3.0.1",
     "express": "^4.19.2",
     "mongodb": "^6.8.0",
-    "mongoose": "^8.5.2"
+    "mongoose": "^8.5.2",
+    "web3": "^4.11.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

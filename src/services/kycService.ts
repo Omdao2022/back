@@ -1,6 +1,7 @@
 import { Client } from "../models/Client";
 
 export class KycService {
+
   public createUser = async (userData: any): Promise<any> => {
     try {
       console.log("UserData=======>", userData);
