@@ -24,7 +24,9 @@ export class KycController {
   }
 
   public getAccessToken = async (req: Request, res: Response): Promise<void> => {
-    const token = await getAccessToken("1");
+    const userId = req.params.userId;
+    console.log("userId =========> ", userId, req.params);
+    const token = await getAccessToken(userId);
     res.status(200).json(token);
   }
 

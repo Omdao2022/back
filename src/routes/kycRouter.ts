@@ -7,7 +7,7 @@ const kycController = new KycController();
 
 kycRouter.post('/register', kycController.registerClient);
 
-kycRouter.get('/getToken', kycController.getAccessToken);
+kycRouter.get('/getToken/:userId', kycController.getAccessToken);
 
 kycRouter.get('/getApplicant', kycController.getApplicant);
 
