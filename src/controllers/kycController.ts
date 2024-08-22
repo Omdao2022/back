@@ -42,13 +42,13 @@ export class KycController {
 
   public getNonce = async (req: Request, res: Response): Promise<void> => {
     const address = req.params.address;
-    const nonce = await this.signService.getNonce(address);
+    const nonce = await this.signService.getNonce();
     res.status(200).json({ nonce });
   }
 
   public verifySignature = async (req: Request, res: Response): Promise<void> => {
-    const { address, signature } = req.body;
-    const result = await this.signService.verifySignature(address, signature);
+    const { message, signature } = req.body;
+    const result = await this.signService.verifySignature(message, signature);
     res.status(200).json(result);
   }
 } 
