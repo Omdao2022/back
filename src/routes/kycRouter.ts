@@ -15,6 +15,6 @@ kycRouter.get('/getApplicantVerifStep', kycController.getApplicantVerifStep);
 
 kycRouter.get('/getNonce', kycController.getNonce);
 
-kycRouter.post('/verifySingature', kycController.verifySignature);
+kycRouter.post('/verifySignature', kycController.verifySignature);
 
 export default kycRouter;

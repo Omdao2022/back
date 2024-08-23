@@ -5,7 +5,7 @@ export class SignService {
 
   public getNonce = async (): Promise<any> => {
     const nonce = generateNonce();
-    return { "Nonce": nonce };
+    return nonce;
   };
 
   public verifySignature = async (

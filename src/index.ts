@@ -1,8 +1,9 @@
-import express, { Express, Request, Response, Application } from 'express';
-import dotenv from 'dotenv';
-import connectDB from './config/db';
-import kycRouter from './routes/kycRouter';
-import cors from 'cors';
+import express, { Express, Request, Response, Application } from "express";
+import dotenv from "dotenv";
+import connectDB from "./config/db";
+import kycRouter from "./routes/kycRouter";
+import cors from "cors";
+import Session from "express-session";
 
 //For env file
 dotenv.config();
@@ -10,15 +11,35 @@ dotenv.config();
 const app: Application = express();
 const port = process.env.PORT || 8000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Your frontend URL
+    credentials: true, // Allow credentials
+  })
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/api', kycRouter);
+app.use("/api", kycRouter);
+
+// Configure session middleware
+app.use(
+  Session({
+    name: "siwe-quickstart",
+    secret: "siwe-quickstart-secret",
+    resave: false, // Avoid resaving sessions that haven't changed
+    saveUninitialized: false, // Don't save uninitialized sessions
+    cookie: {
+      secure: false, // Set to true if using HTTPS
+      sameSite: "strict", // Controls whether cookies are sent with cross-site requests
+      maxAge: 1000 * 60 * 60, // Cookie expiration time (1 hour)
+    },
+  })
+);
 
 connectDB().then(() => {
   app.listen(port, () => {
     console.log(`Server is Fire at http://localhost:${port}`);
   });
   console.log("Env", process.env.SUMSUB_SECRET, process.env.SUMSUB_TOKEN);
-})
-
+});
