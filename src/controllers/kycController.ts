@@ -47,8 +47,8 @@ export class KycController {
   }
 
   public verifySignature = async (req: Request, res: Response): Promise<void> => {
-    const { message, signature } = req.body;
-    const result = await this.signService.verifySignature(message, signature);
+    const { message, signature, walletAddress } = req.body;
+    const result = await this.signService.verifySignature(message, signature, walletAddress);
     res.status(200).json(result);
   }
 } 
