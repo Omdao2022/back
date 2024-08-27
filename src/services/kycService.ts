@@ -4,7 +4,7 @@ export class KycService {
 
   public createUser = async (userData: any): Promise<any> => {
     try {
-      console.log("UserData=======>", userData);
+      // console.log("UserData=======>", userData);
 
       const newUser = new Client(userData);
       const savedUser = await newUser.save();
