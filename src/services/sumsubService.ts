@@ -5,15 +5,12 @@ import devConfig from "../config/env";
 const sumsubSecret: string = devConfig.sumsubSecret??'';
 const sumsubToken = devConfig.sumsubToken;
 
-// console.log("sumsubToken===========>", sumsubToken, sumsubSecret);
-
 const SUMSUB_BASE_URL = "https://api.sumsub.com";
 
 let config: any = {};
 config.baseURL = SUMSUB_BASE_URL;
 
 const createSignature = async (config: any) => {
-  // console.log("Creating a signature for the request...");
 
   var ts = Math.floor(Date.now() / 1000) + 50;
   const signature = crypto.createHmac("sha256", sumsubSecret);
