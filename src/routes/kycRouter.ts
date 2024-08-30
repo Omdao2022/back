@@ -2,11 +2,12 @@ import { Router } from 'express';
 
 import { KycController } from '../controllers/kycController';
 import auth from '../middlewares/auth';
+import validateClient from '../validation/registerValidation';
 
 const kycRouter = Router();
 const kycController = new KycController();
 
-kycRouter.post('/register', kycController.registerClient);
+kycRouter.post('/register', validateClient, kycController.registerClient);
 
 kycRouter.get('/getToken/:userId', kycController.getAccessToken);
 

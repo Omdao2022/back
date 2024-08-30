@@ -13,6 +13,8 @@ export class KycController {
   }
 
   public registerClient = async (req: Request, res: Response): Promise<void> => {
+    console.log(req.body);
+    
     try {
       const newUser = await this.kycService.createUser(req.body);
       res.status(201).json(newUser);
