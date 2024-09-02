@@ -7,7 +7,7 @@ import { GenerateAuthToken } from '../utils/generateAuthToken';
 const key = devConfig.secretkey;
 
 interface AuthRequest extends Request {
-  client?: any;
+  client?: unknown;
 }
 
 export default function (req: AuthRequest, res: Response, next: NextFunction) {

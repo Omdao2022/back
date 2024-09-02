@@ -1,4 +1,4 @@
-function isValidString(value: any): boolean {
+function isValidString(value: unknown): boolean {
     if(value === 'string' && value.trim() !== '') {
         return true;
     } else {

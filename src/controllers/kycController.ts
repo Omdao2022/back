@@ -49,7 +49,14 @@ export class KycController {
 
   public verifySignature = async (req: Request, res: Response): Promise<void> => {
     const { message, signature, walletAddress } = req.body;
+
+
     const result = await this.signService.verifySignature(message, signature, walletAddress);
-    res.status(200).json(result);
+
+    if(result === 'walletAddress does not exist!') {
+      res.status(401).json({error: 'walletAddress does not exist!'});
+    } else {
+      res.status(200).json(result);
+    }
   }
 } 
