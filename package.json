@@ -30,7 +30,7 @@
   "homepage": "https://github.com/Omdao2022/back#readme",
   "dependencies": {
     "@types/joi": "^17.2.3",
-    "axios": "^1.7.3",
+    "axios": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "eth-sig-util": "^3.0.1",
