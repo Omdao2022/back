@@ -1,7 +1,6 @@
-import { Client } from "../models/Client";
+import { Client } from '../models/Client';
 
 export class KycService {
-
   public createUser = async (userData: any): Promise<any> => {
     try {
       const newUser = new Client(userData);
@@ -10,11 +9,11 @@ export class KycService {
       return savedUser;
     } catch (error) {
       if (error instanceof Error) {
-        console.error("Error creating user:", error.message);
+        console.error('Error creating user:', error.message);
         throw new Error(`Failed to create user: ${error.message}`);
       } else {
-        console.error("Unexpected error creating user:", error);
-        throw new Error("Failed to create user due to an unexpected error");
+        console.error('Unexpected error creating user:', error);
+        throw new Error('Failed to create user due to an unexpected error');
       }
     }
   };

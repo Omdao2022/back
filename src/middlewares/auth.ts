@@ -56,7 +56,7 @@ export default function (req: AuthRequest, res: Response, next: NextFunction) {
       }
     });
   } catch (err) {
-    console.error('Something went wrong with auth middleware:', err);
+    console.log('Something went wrong with auth middleware:', err);
     res.status(500).json({ msg: 'Something went wrong with auth middleware' });
   }
 }
