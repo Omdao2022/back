@@ -1,9 +1,9 @@
 function isValidString(value: unknown): boolean {
-    if(value === 'string' && value.trim() !== '') {
-        return true;
+    if (value === 'string' && value.trim() !== '') {
+        return true
     } else {
-        return false;
+        return false
     }
-};
+}
 
-export default isValidString;
+export default isValidString
