@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import { Client } from '../models/Client'
 import devConfig from '../config/env'
 import { GenerateAuthToken } from '../utils/generateAuthToken'
+import logger from '../utils/logger'
 
 const key = devConfig.secretkey
 
@@ -20,7 +21,7 @@ export default function (req: AuthRequest, res: Response, next: NextFunction) {
     try {
         jwt.verify(token, key, async (err, decoded) => {
             if (err) {
-                console.log(err)
+                logger.error(err)
 
                 return res.status(401).json({ msg: 'Token is not valid' })
             }
@@ -53,18 +54,16 @@ export default function (req: AuthRequest, res: Response, next: NextFunction) {
                     next()
                 } catch (err) {
                     console.error('Error fetching client:', err)
-                    return res
-                        .status(500)
-                        .json({
-                            msg: 'Something went wrong with auth middleware',
-                        })
+                    return res.status(500).json({
+                        msg: 'Something went wrong with auth middleware',
+                    })
                 }
             } else {
                 return res.status(401).json({ msg: 'Token is not valid' })
             }
         })
     } catch (err) {
-        console.log('Something went wrong with auth middleware:', err)
+        logger.error('Something went wrong with auth middleware:', err)
         res.status(500).json({
             msg: 'Something went wrong with auth middleware',
         })

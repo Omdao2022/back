@@ -1,6 +1,7 @@
 // String validator
 import { Request, Response, NextFunction } from 'express'
 import Joi from 'joi'
+import logger from '../utils/logger'
 
 interface Validation {
     walletAddress: string
@@ -30,7 +31,7 @@ const verifySignatureValidator = (
     res: Response,
     next: NextFunction
 ) => {
-    console.log(req.body)
+    logger.debug(req.body)
 
     const { error } = schema.validate(req.body)
 

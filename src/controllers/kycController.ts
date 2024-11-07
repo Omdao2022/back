@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { KycService } from '../services/kycService'
+import logger from '../utils/logger'
 import {
     getAccessToken,
     getApplicant,
@@ -20,7 +21,7 @@ export class KycController {
         req: Request,
         res: Response
     ): Promise<void> => {
-        console.log(req.body)
+        logger.debug(req.body)
 
         try {
             const newUser = await this.kycService.createUser(req.body)

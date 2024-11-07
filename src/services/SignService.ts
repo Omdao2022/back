@@ -1,5 +1,7 @@
 import { generateNonce, SiweMessage } from 'siwe'
 import { GenerateAuthToken } from '../utils/generateAuthToken'
+import logger from '../utils/logger'
+
 export class SignService {
     public getNonce = async (): Promise<any> => {
         const nonce = generateNonce()
@@ -17,7 +19,7 @@ export class SignService {
 
             const token = GenerateAuthToken(walletAddress)
 
-            if (!token) console.log('error')
+            if (!token) logger.error('error with token generation')
 
             return token
         } catch {

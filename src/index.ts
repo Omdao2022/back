@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import connectDB from './config/db'
 import kycRouter from './routes/kycRouter'
 import cors from 'cors'
-import logger from './utils/logger';
+import logger from './utils/logger'
 
 //For env file
 dotenv.config()
@@ -24,7 +24,7 @@ app.use('/api', kycRouter)
 
 connectDB().then(() => {
     app.listen(port, () => {
-        logger.info(`Server is running at http://localhost:${port}`);
+        logger.info(`Server is running at http://localhost:${port}`)
     })
     logger.info('Env', process.env.SUMSUB_SECRET, process.env.SUMSUB_TOKEN)
 })

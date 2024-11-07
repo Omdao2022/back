@@ -1,13 +1,12 @@
 import crypto from 'crypto'
 import axios from 'axios'
 import devConfig from '../config/env'
+import logger from '../utils/logger'
 
 const sumsubSecret: string = devConfig.sumsubSecret ?? ''
 const sumsubToken = devConfig.sumsubToken
 
 const SUMSUB_BASE_URL = 'https://api.sumsub.com'
-
-
 
 const createSignature = async (config: any) => {
     const ts = Math.floor(Date.now() / 1000) + 50
@@ -44,7 +43,7 @@ const getApplicant = async (applicantId: string) => {
         const response = await axios(config)
         return response.data
     } catch (error) {
-        console.log(error)
+        logger.error(error)
     }
 }
 
@@ -65,10 +64,10 @@ const getAccessToken = async (userId: string) => {
 
     try {
         const response = await axios(config)
-        // console.log("request sent!");
+        logger.debug('request sent!')
         return response.data
     } catch (error) {
-        console.log(error)
+        logger.error(error)
     }
 }
 
@@ -91,7 +90,7 @@ const getApplicantVerifStep = async (applicantId: string) => {
         const response = await axios(config)
         return response.data
     } catch (error) {
-        console.log(error)
+        logger.error(error)
     }
 }
 
@@ -99,7 +98,7 @@ const getImage = async (inspectionId: number, imageId: number) => {
     const config: any = {}
     config.baseURL = SUMSUB_BASE_URL
     const url = `/resources/inspections/${inspectionId}/resources/${imageId}`
-    // console.log(inspectionId, imageId);
+    logger.debug(inspectionId.toString(), imageId)
     const headers = {
         Accept: 'application/json',
         'X-App-Token': sumsubToken,
@@ -112,7 +111,7 @@ const getImage = async (inspectionId: number, imageId: number) => {
     const response = await axios(config)
     const buffer = Buffer.from(response.data, 'binary')
     const sizeInBytes = buffer.length
-    // console.log(sizeInBytes);
+    logger.debug(sizeInBytes)
     return response.data
 }
 
