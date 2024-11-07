@@ -5,3 +5,6 @@
 {"level":"info","message":"MongoDB connected: ac-ugm1u9p-shard-00-02.u9jhip9.mongodb.net","timestamp":"2024-11-07T06:47:15.298Z"}
 {"level":"info","message":"Env","timestamp":"2024-11-07T06:47:15.305Z"}
 {"level":"info","message":"Server is running at http://localhost:5000","timestamp":"2024-11-07T06:47:15.306Z"}
+{"level":"info","message":"MongoDB connected: ac-ugm1u9p-shard-00-00.u9jhip9.mongodb.net","timestamp":"2024-11-07T08:28:11.112Z"}
+{"level":"info","message":"Env","timestamp":"2024-11-07T08:28:11.132Z"}
+{"level":"info","message":"Server is running at http://localhost:5000","timestamp":"2024-11-07T08:28:11.133Z"}

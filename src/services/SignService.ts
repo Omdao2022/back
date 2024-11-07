@@ -12,17 +12,21 @@ export class SignService {
         message: string,
         signature: string,
         walletAddress: string
-    ): Promise<string | boolean> => {
+    ): Promise<{ accessToken: string; refreshToken: string } | boolean> => {
         // const siweMessage = new SiweMessage(message);
         try {
             // await siweMessage.verify({ signature });
 
-            const token = GenerateAuthToken(walletAddress)
+            const tokens = GenerateAuthToken(walletAddress)
 
-            if (!token) logger.error('error with token generation')
+            if (!tokens) {
+                logger.error('error with token generation')
+                return false
+            }
 
-            return token
+            return tokens
         } catch {
+            logger.error('walletAddress does not exist!')
             return false
         }
     }

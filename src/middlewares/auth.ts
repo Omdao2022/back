@@ -45,10 +45,15 @@ export default function (req: AuthRequest, res: Response, next: NextFunction) {
                     req.body.client = client
 
                     // Refresh token
-                    const newToken: string = await GenerateAuthToken(
+                    const tokenResult = await GenerateAuthToken(
                         decoded.walletAddress
                     )
-
+                    if (!tokenResult) {
+                        return res
+                            .status(500)
+                            .json({ msg: 'Failed to generate new token' })
+                    }
+                    const newToken: string = tokenResult.accessToken
                     res.setHeader('New-Token', newToken)
 
                     next()

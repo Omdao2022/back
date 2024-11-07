@@ -76,7 +76,7 @@ export class KycController {
             walletAddress
         )
 
-        if (result === 'walletAddress does not exist!') {
+        if (!result) {
             res.status(401).json({ error: 'walletAddress does not exist!' })
         } else {
             res.status(200).json(result)
