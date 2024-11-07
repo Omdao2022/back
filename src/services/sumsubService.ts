@@ -7,8 +7,7 @@ const sumsubToken = devConfig.sumsubToken
 
 const SUMSUB_BASE_URL = 'https://api.sumsub.com'
 
-const config: any = {}
-config.baseURL = SUMSUB_BASE_URL
+
 
 const createSignature = async (config: any) => {
     const ts = Math.floor(Date.now() / 1000) + 50
@@ -27,6 +26,8 @@ axios.interceptors.request.use(createSignature, function (error) {
 })
 
 const getApplicant = async (applicantId: string) => {
+    const config: any = {}
+    config.baseURL = SUMSUB_BASE_URL
     const url = `/resources/applicants/${applicantId}/one`
 
     const headers = {
@@ -48,6 +49,8 @@ const getApplicant = async (applicantId: string) => {
 }
 
 const getAccessToken = async (userId: string) => {
+    const config: any = {}
+    config.baseURL = SUMSUB_BASE_URL
     const url = `/resources/accessTokens?userId=${userId}&levelName=basic-kyc-level&ttlInSecs=2000`
 
     const headers = {
@@ -70,6 +73,8 @@ const getAccessToken = async (userId: string) => {
 }
 
 const getApplicantVerifStep = async (applicantId: string) => {
+    const config: any = {}
+    config.baseURL = SUMSUB_BASE_URL
     const url = `/resources/applicants/${applicantId}/requiredIdDocsStatus`
 
     const headers = {
@@ -91,6 +96,8 @@ const getApplicantVerifStep = async (applicantId: string) => {
 }
 
 const getImage = async (inspectionId: number, imageId: number) => {
+    const config: any = {}
+    config.baseURL = SUMSUB_BASE_URL
     const url = `/resources/inspections/${inspectionId}/resources/${imageId}`
     // console.log(inspectionId, imageId);
     const headers = {

@@ -40,7 +40,8 @@
         "mongodb": "^6.8.0",
         "mongoose": "^8.8.0",
         "siwe": "^2.3.2",
-        "web3": "^4.11.1"
+        "web3": "^4.11.1",
+        "winston": "^3.16.0"
     },
     "devDependencies": {
         "@eslint/js": "^9.14.0",
