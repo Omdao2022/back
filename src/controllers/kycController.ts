@@ -68,6 +68,7 @@ export class KycController {
         req: Request,
         res: Response
     ): Promise<void> => {
+        logger.debug(req.body)
         const { message, signature, walletAddress } = req.body
 
         const result = await this.signService.verifySignature(

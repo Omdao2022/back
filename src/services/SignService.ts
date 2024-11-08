@@ -13,9 +13,9 @@ export class SignService {
         signature: string,
         walletAddress: string
     ): Promise<{ accessToken: string; refreshToken: string } | boolean> => {
-        // const siweMessage = new SiweMessage(message);
+        const siweMessage = new SiweMessage(message)
         try {
-            // await siweMessage.verify({ signature });
+            await siweMessage.verify({ signature })
 
             const tokens = GenerateAuthToken(walletAddress)
 
