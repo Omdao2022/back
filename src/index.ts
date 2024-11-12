@@ -26,5 +26,4 @@ connectDB().then(() => {
     app.listen(port, () => {
         logger.info(`Server is running at http://localhost:${port}`)
     })
-    logger.info('Env', process.env.SUMSUB_SECRET, process.env.SUMSUB_TOKEN)
 })
