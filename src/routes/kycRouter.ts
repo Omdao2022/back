@@ -12,12 +12,7 @@ const kycController = new KycController()
 
 kycRouter.post('/register', validateClient, kycController.registerClient)
 
-kycRouter.get(
-    '/getToken/:userId',
-    auth,
-    userIdValidator,
-    kycController.getAccessToken
-)
+kycRouter.get('/getToken', auth, userIdValidator, kycController.getAccessToken)
 
 kycRouter.get(
     '/getApplicant',
@@ -44,5 +39,7 @@ kycRouter.post(
 kycRouter.post('/testAuth', auth, (req, res) => {
     res.json({ success: true, a: req.body })
 })
+
+kycRouter.post('/refreshToken', kycController.refreshToken)
 
 export default kycRouter

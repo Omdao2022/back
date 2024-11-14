@@ -7,6 +7,7 @@ import {
     getApplicantVerifStep,
 } from '../services/sumsubService'
 import { SignService } from '../services/SignService'
+import { GenerateAuthToken } from '../utils/generateAuthToken'
 
 export class KycController {
     private kycService: KycService
@@ -35,7 +36,8 @@ export class KycController {
         req: Request,
         res: Response
     ): Promise<void> => {
-        const userId = req.params.userId
+        logger.debug('user body: ', req.body.client)
+        const userId = req.body.client?.userId
         const token = await getAccessToken(userId)
         res.status(200).json(token)
     }
@@ -83,4 +85,34 @@ export class KycController {
             res.status(200).json(result)
         }
     }
+
+    public refreshToken = async (req: Request, res: Response): Promise<void> => {
+        const { refreshToken } = req.body;
+        if (!refreshToken) {
+            res.status(401).json({ msg: 'Refresh token is required' });
+            return;
+        }
+
+        // Check if the refresh token exists in the database
+        const storedToken = await refreshToken.findOne({ token: refreshToken });
+        if (!storedToken) {
+            res.status(403).json({ msg: 'Invalid refresh token' });
+            return;
+        }
+        // Generate new tokens
+        const newTokens = await GenerateAuthToken(storedToken.walletAddress);
+        res.status(200).json(newTokens);
+    };
+
+    public logout = async (req: Request, res: Response): Promise<void> => {
+        const { refreshToken } = req.body;
+        if (!refreshToken) {
+            res.status(401).json({ msg: 'Refresh token is required' });
+            return;
+        }
+    
+        // Remove the refresh token from the database
+        await refreshToken.deleteOne({ token: refreshToken });
+        res.status(200).json({ msg: 'Logged out successfully' });
+    };
 }
