@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 import devConfig from '../config/env'
 import logger from '../utils/logger'
 import { Client } from '../models/Client'
-import { RefreshToken } from '../models/RefreshToken';
+import { RefreshToken } from '../models/RefreshToken'
 
 export const GenerateAuthToken = async (walletAddress: string) => {
     const client = await Client.findOne({ walletAddress })
@@ -26,7 +26,10 @@ export const GenerateAuthToken = async (walletAddress: string) => {
     const key = devConfig.secretkey
     const accessToken = jwt.sign(payload, key, { expiresIn: '15m' })
     const refreshToken = jwt.sign(payload, key, { expiresIn: '8h' })
-    await RefreshToken.create({token: refreshToken, walletAddress: client.walletAddress});
+    await RefreshToken.create({
+        token: refreshToken,
+        walletAddress: client.walletAddress,
+    })
     return { accessToken, refreshToken }
 }
 

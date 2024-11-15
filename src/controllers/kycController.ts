@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { KycService } from '../services/kycService'
 import logger from '../utils/logger'
+import jwt from 'jsonwebtoken'
 import {
     getAccessToken,
     getApplicant,
@@ -8,6 +9,8 @@ import {
 } from '../services/sumsubService'
 import { SignService } from '../services/SignService'
 import { GenerateAuthToken } from '../utils/generateAuthToken'
+import { config } from 'dotenv'
+config()
 
 export class KycController {
     private kycService: KycService
@@ -23,12 +26,44 @@ export class KycController {
         res: Response
     ): Promise<void> => {
         logger.debug(req.body)
+        const walletAddress = req.body.client?.walletAddress
+
+        const token = req.headers['x-auth-token'] as string
+
+        if (!token) {
+            res.status(401).json({ error: 'Unauthorized: No token provided' })
+            return
+        }
 
         try {
-            const newUser = await this.kycService.createUser(req.body)
-            res.status(201).json(newUser)
+            const decoded: any = jwt.verify(
+                token,
+                process.env.SECRET_KEY as jwt.Secret
+            )
+            const walletAddress = decoded.walletAddress
+            if (!walletAddress) {
+                res.status(401).json({
+                    error: 'Unauthorized: No wallet address found',
+                })
+                return
+            }
+
+            try {
+                const newUser = await this.kycService.createUser({
+                    ...req.body,
+                    walletAddress,
+                })
+                res.status(201).json(newUser)
+            } catch (error) {
+                logger.error('Error during registeration:', error)
+                res.status(500).json({ error: 'Failed to create a user' })
+            }
         } catch (error) {
-            res.status(500).json({ error: 'Failed to create a user' })
+            logger.error(
+                'Error during registeration(wallet address extraction)',
+                error
+            )
+            res.status(500).json({ error: 'failed to create new user' })
         }
     }
 
@@ -86,33 +121,36 @@ export class KycController {
         }
     }
 
-    public refreshToken = async (req: Request, res: Response): Promise<void> => {
-        const { refreshToken } = req.body;
+    public refreshToken = async (
+        req: Request,
+        res: Response
+    ): Promise<void> => {
+        const { refreshToken } = req.body
         if (!refreshToken) {
-            res.status(401).json({ msg: 'Refresh token is required' });
-            return;
+            res.status(401).json({ msg: 'Refresh token is required' })
+            return
         }
 
         // Check if the refresh token exists in the database
-        const storedToken = await refreshToken.findOne({ token: refreshToken });
+        const storedToken = await refreshToken.findOne({ token: refreshToken })
         if (!storedToken) {
-            res.status(403).json({ msg: 'Invalid refresh token' });
-            return;
+            res.status(403).json({ msg: 'Invalid refresh token' })
+            return
         }
         // Generate new tokens
-        const newTokens = await GenerateAuthToken(storedToken.walletAddress);
-        res.status(200).json(newTokens);
-    };
+        const newTokens = await GenerateAuthToken(storedToken.walletAddress)
+        res.status(200).json(newTokens)
+    }
 
     public logout = async (req: Request, res: Response): Promise<void> => {
-        const { refreshToken } = req.body;
+        const { refreshToken } = req.body
         if (!refreshToken) {
-            res.status(401).json({ msg: 'Refresh token is required' });
-            return;
+            res.status(401).json({ msg: 'Refresh token is required' })
+            return
         }
-    
+
         // Remove the refresh token from the database
-        await refreshToken.deleteOne({ token: refreshToken });
-        res.status(200).json({ msg: 'Logged out successfully' });
-    };
+        await refreshToken.deleteOne({ token: refreshToken })
+        res.status(200).json({ msg: 'Logged out successfully' })
+    }
 }
