@@ -13,7 +13,7 @@ interface AuthRequest extends Request {
 
 export default function (req: AuthRequest, res: Response, next: NextFunction) {
     const token = req.headers['x-auth-token']
-
+    logger.debug("Token Header: ", token);
     if (!token || Array.isArray(token)) {
         return res.status(401).json({ msg: 'No token, authorization denied!' })
     }

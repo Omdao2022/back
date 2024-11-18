@@ -13,11 +13,14 @@ export class SignService {
         signature: string,
         walletAddress: string
     ): Promise<{ accessToken: string; refreshToken: string } | boolean> => {
+        logger.info("Signature verification requested!");
         const siweMessage = new SiweMessage(message)
         try {
             await siweMessage.verify({ signature })
 
             const tokens = GenerateAuthToken(walletAddress)
+
+            logger.debug("token: ", tokens);
 
             if (!tokens) {
                 logger.error('error with token generation')

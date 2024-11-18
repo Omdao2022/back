@@ -25,22 +25,10 @@ export class KycController {
         req: Request,
         res: Response
     ): Promise<void> => {
-        logger.debug(req.body)
-        const walletAddress = req.body.client?.walletAddress
-
-        const token = req.headers['x-auth-token'] as string
-
-        if (!token) {
-            res.status(401).json({ error: 'Unauthorized: No token provided' })
-            return
-        }
+        logger.debug("client register request: ", req.body)
+        const walletAddress = req.body.walletAddress
 
         try {
-            const decoded: any = jwt.verify(
-                token,
-                process.env.SECRET_KEY as jwt.Secret
-            )
-            const walletAddress = decoded.walletAddress
             if (!walletAddress) {
                 res.status(401).json({
                     error: 'Unauthorized: No wallet address found',
@@ -96,6 +84,7 @@ export class KycController {
     }
 
     public getNonce = async (req: Request, res: Response): Promise<void> => {
+        logger.info('Get nonce request received');
         const address = req.params.address
         const nonce = await this.signService.getNonce()
         res.status(200).json({ nonce })

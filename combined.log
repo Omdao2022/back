@@ -19,3 +19,12 @@
 {"level":"error","message":"Error for DB connect: Server selection timed out after 30000 ms","timestamp":"2024-11-15T06:55:47.130Z"}
 {"level":"info","message":"MongoDB connected: ac-ugm1u9p-shard-00-01.u9jhip9.mongodb.net","timestamp":"2024-11-15T07:03:00.011Z"}
 {"level":"info","message":"Server is running at http://localhost:5000","timestamp":"2024-11-15T07:03:00.042Z"}
+{"level":"info","message":"MongoDB connected: ac-ugm1u9p-shard-00-01.u9jhip9.mongodb.net","timestamp":"2024-11-15T07:13:15.066Z"}
+{"level":"info","message":"Server is running at http://localhost:5000","timestamp":"2024-11-15T07:13:15.073Z"}
+{"level":"info","message":"MongoDB connected: ac-ugm1u9p-shard-00-02.u9jhip9.mongodb.net","timestamp":"2024-11-15T07:23:32.250Z"}
+{"level":"info","message":"Server is running at http://localhost:5000","timestamp":"2024-11-15T07:23:32.256Z"}
+{"level":"info","message":"MongoDB connected: ac-ugm1u9p-shard-00-02.u9jhip9.mongodb.net","timestamp":"2024-11-15T07:24:13.085Z"}
+{"level":"info","message":"Server is running at http://localhost:5000","timestamp":"2024-11-15T07:24:13.091Z"}
+{"level":"info","message":"MongoDB connected: ac-ugm1u9p-shard-00-01.u9jhip9.mongodb.net","timestamp":"2024-11-15T07:26:04.389Z"}
+{"level":"info","message":"Server is running at http://localhost:5000","timestamp":"2024-11-15T07:26:04.396Z"}
+{"level":"info","message":"Get nonce request received","timestamp":"2024-11-15T07:26:23.335Z"}

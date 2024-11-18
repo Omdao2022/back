@@ -28,7 +28,7 @@ kycRouter.get(
     kycController.getApplicantVerifStep
 )
 
-kycRouter.get('/getNonce', auth, addressValidator, kycController.getNonce)
+kycRouter.get('/getNonce', kycController.getNonce)
 
 kycRouter.post(
     '/verifySignature',
